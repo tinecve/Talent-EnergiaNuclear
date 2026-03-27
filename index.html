@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Energía Nuclear</title>
+
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <!-- PapaParse for CSV -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <div class="atom-icon"></div>
+      ENERGÍA NUCLEAR
+    </div>
+    <ul class="nav-links">
+      <li><a href="#fisica">Física</a></li>
+      <li><a href="#reactor-section">Reactor</a></li>
+      <li><a href="#datos">Datos</a></li>
+      <li><a href="#csv-section">CSV</a></li>
+      <li><a href="#mapa-section">Mundial</a></li>
+      <li><a href="#historia">Historia</a></li>
+      <li><a href="#isotopos">Isótopos</a></li>
+      <li><a href="#seguridad">Seguridad</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-reactor"></div>
+    <div class="hero-content">
+      <div class="hero-tag">// Talent Tech - 2026</div>
+      <h1 class="hero-title">
+        <span>ENERGÍA</span>
+        <span>NUCLEAR</span>
+      </h1>
+      <p class="hero-subtitle">
+        Explora la ciencia, la historia y el futuro de la energía más densa del universo.
+        Desde la fisión hasta la fusión, datos y visualizaciones interactivas.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="val" data-count="440">0</span>
+          <span class="lbl">Reactores activos</span>
+        </div>
+        <div class="hero-stat">
+          <span class="val" data-count="10">0</span>
+          <span class="lbl">% Energía mundial</span>
+        </div>
+        <div class="hero-stat">
+          <span class="val" data-count="60">0</span>
+          <span class="lbl">Años de historia</span>
+        </div>
+        <div class="hero-stat">
+          <span class="val" data-count="33">0</span>
+          <span class="lbl">Países con reactores</span>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <div class="arrow"></div>
+      <span>SCROLL</span>
+    </div>
+  </section>
+
+  <!-- FÍSICA NUCLEAR -->
+  <section id="fisica">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <span class="section-tag">// 01 — Fundamentos</span>
+        <h2 class="section-title">Física <em>Nuclear</em></h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="physics-grid">
+        <div class="phys-card fade-in-up">
+          <span class="phys-icon">⚛️</span>
+          <h3>Fisión Nuclear</h3>
+          <p>Un núcleo pesado como el Uranio-235 absorbe un neutrón y se divide en dos núcleos más pequeños, liberando
+            2-3 neutrones adicionales y una enorme cantidad de energía en forma de calor y radiación.</p>
+          <div class="formula">²³⁵U + n → ⁹²Kr + ¹⁴¹Ba + 3n + ~200 MeV</div>
+        </div>
+        <div class="phys-card fade-in-up" style="transition-delay:0.1s">
+          <span class="phys-icon">💥</span>
+          <h3>Fusión Nuclear</h3>
+          <p>Dos núcleos ligeros (deuterio y tritio) se unen bajo temperaturas extremas (~100 millones °C) para formar
+            helio, liberando un neutrón y hasta 4 veces más energía que la fisión por unidad de masa.</p>
+          <div class="formula">²H + ³H → ⁴He + n + 17.6 MeV</div>
+        </div>
+        <div class="phys-card fade-in-up" style="transition-delay:0.2s">
+          <span class="phys-icon">☢️</span>
+          <h3>Radiactividad</h3>
+          <p>Núcleos inestables emiten partículas y radiación (alfa α, beta β, gamma γ) para alcanzar estados de menor
+            energía. La vida media varía desde nanosegundos hasta miles de millones de años.</p>
+          <div class="formula">N(t) = N₀ · e^(-λt)</div>
+        </div>
+        <div class="phys-card fade-in-up" style="transition-delay:0.3s">
+          <span class="phys-icon">🔗</span>
+          <h3>Reacción en Cadena</h3>
+          <p>Cada fisión libera neutrones que pueden iniciar nuevas fisiones. El factor de multiplicación k controla si
+            la reacción es subcrítica (k&lt;1), crítica (k=1) o supercrítica (k&gt;1).</p>
+          <div class="formula">k_eff = η · ε · p · f · P_NL</div>
+        </div>
+        <div class="phys-card fade-in-up" style="transition-delay:0.4s">
+          <span class="phys-icon">⚡</span>
+          <h3>Equivalencia Masa-Energía</h3>
+          <p>La ecuación más famosa de la física explica que pequeñísimas cantidades de masa se convierten en enormes
+            cantidades de energía. 1 gramo de U-235 equivale a ~82 TJ de energía.</p>
+          <div class="formula">E = mc²</div>
+        </div>
+        <div class="phys-card fade-in-up" style="transition-delay:0.5s">
+          <span class="phys-icon">🛡️</span>
+          <h3>Blindaje y Moderación</h3>
+          <p>Los moderadores (agua ligera, agua pesada, grafito) ralentizan los neutrones para optimizar la fisión. El
+            blindaje (plomo, hormigón) absorbe radiación para proteger el entorno exterior.</p>
+          <div class="formula">I = I₀ · e^(-μx)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REACTOR -->
+  <section id="reactor-section">
+    <div class="container">
+      <div class="reactor-layout">
+        <!-- SVG Diagram -->
+        <div class="reactor-diagram fade-in-up">
+          <svg viewBox="0 0 400 400" class="reactor-svg-container" id="reactor-svg">
+            <defs>
+              <radialGradient id="coreGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" style="stop-color:#00e5ff;stop-opacity:0.2" />
+                <stop offset="100%" style="stop-color:#00e5ff;stop-opacity:0" />
+              </radialGradient>
+              <filter id="glow-filter">
+                <feGaussianBlur stdDeviation="3" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- Containment -->
+            <circle cx="200" cy="200" r="180" fill="rgba(0,229,255,0.02)" stroke="rgba(0,229,255,0.15)"
+              stroke-width="1" />
+            <!-- Pressure vessel -->
+            <circle cx="200" cy="200" r="130" fill="rgba(0,229,255,0.04)" stroke="rgba(0,229,255,0.25)"
+              stroke-width="1.5" />
+            <!-- Core -->
+            <circle cx="200" cy="200" r="70" fill="url(#coreGrad)" stroke="#00e5ff" stroke-width="2"
+              filter="url(#glow-filter)" />
+            <!-- Fuel rods -->
+            <g stroke="rgba(255,204,0,0.6)" stroke-width="3" stroke-linecap="round">
+              <line x1="200" y1="155" x2="200" y2="245" />
+              <line x1="175" y1="160" x2="175" y2="240" />
+              <line x1="225" y1="160" x2="225" y2="240" />
+              <line x1="155" y1="175" x2="155" y2="225" />
+              <line x1="245" y1="175" x2="245" y2="225" />
+            </g>
+            <!-- Control rods -->
+            <g stroke="rgba(255,34,68,0.7)" stroke-width="4" stroke-linecap="round">
+              <line x1="185" y1="130" x2="185" y2="200" id="ctrl-rod-1" />
+              <line x1="215" y1="130" x2="215" y2="200" id="ctrl-rod-2" />
+            </g>
+            <!-- Coolant flow arrows -->
+            <g class="neutron-path">
+              <path d="M 200 80 C 320 80 340 200 320 280 C 300 360 100 360 80 280 C 60 200 80 80 200 80" />
+            </g>
+            <!-- Neutrons animated -->
+            <g id="neutrons"></g>
+            <!-- Labels -->
+            <text x="200" y="205" text-anchor="middle" font-family="Share Tech Mono" font-size="9"
+              fill="rgba(0,229,255,0.6)">NÚCLEO</text>
+            <text x="310" y="140" text-anchor="middle" font-family="Share Tech Mono" font-size="8"
+              fill="rgba(0,229,255,0.4)">CONTENEDOR</text>
+            <text x="205" y="125" text-anchor="start" font-family="Share Tech Mono" font-size="8"
+              fill="rgba(255,34,68,0.6)">BARRAS</text>
+            <text x="205" y="135" text-anchor="start" font-family="Share Tech Mono" font-size="8"
+              fill="rgba(255,34,68,0.6)">CONTROL</text>
+            <text x="285" y="310" text-anchor="middle" font-family="Share Tech Mono" font-size="8"
+              fill="rgba(0,229,255,0.4)">REFRIGERANTE</text>
+          </svg>
+        </div>
+
+        <!-- Info -->
+        <div class="reactor-info fade-in-up" style="transition-delay:0.2s">
+          <h2>Cómo funciona un <span>Reactor PWR</span></h2>
+          <p>Los reactores de agua a presión (PWR) son los más comunes del mundo. Utilizan agua como moderador y
+            refrigerante bajo alta presión para evitar que hierva, transfiriendo el calor a un segundo circuito para
+            generar vapor y electricidad.</p>
+          <div class="reactor-steps">
+            <div class="reactor-step active" data-step="1">
+              <div class="step-num">01</div>
+              <div class="step-text">
+                <h4>Fisión en el núcleo</h4>
+                <p>Los neutrones impactan los átomos de U-235 en las varas de combustible, liberando energía térmica
+                  (200 MeV por fisión).</p>
+              </div>
+            </div>
+            <div class="reactor-step" data-step="2">
+              <div class="step-num">02</div>
+              <div class="step-text">
+                <h4>Transferencia de calor</h4>
+                <p>El agua del circuito primario (155 bar, 325°C) absorbe el calor y lo transfiere al generador de vapor
+                  sin mezclar los circuitos.</p>
+              </div>
+            </div>
+            <div class="reactor-step" data-step="3">
+              <div class="step-num">03</div>
+              <div class="step-text">
+                <h4>Generación de vapor</h4>
+                <p>El circuito secundario convierte el agua en vapor que impulsa una turbina conectada a un generador
+                  eléctrico de alta eficiencia.</p>
+              </div>
+            </div>
+            <div class="reactor-step" data-step="4">
+              <div class="step-num">04</div>
+              <div class="step-text">
+                <h4>Control y seguridad</h4>
+                <p>Las barras de control (material absorbente de neutrones) regulan la reacción en cadena y pueden
+                  detenerla completamente en segundos.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATOS Y GRÁFICOS -->
+  <section id="datos">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <span class="section-tag">// 03 — Estadísticas</span>
+        <h2 class="section-title">Datos <em>Globales</em></h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card fade-in-up">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Producción de Energía Nuclear por País</div>
+              <div class="chart-subtitle">TWh — Top 10 países productores (2023)</div>
+            </div>
+            <span class="chart-badge">TWh</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-production"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card fade-in-up" style="transition-delay:0.1s">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Mix Energético Mundial</div>
+              <div class="chart-subtitle">Distribución de fuentes de electricidad global</div>
+            </div>
+            <span class="chart-badge">%</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-mix"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card fade-in-up" style="transition-delay:0.2s">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Evolución de Reactores en Operación</div>
+              <div class="chart-subtitle">1960 — 2024 · número total de unidades</div>
+            </div>
+            <span class="chart-badge">HIST</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-timeline"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card fade-in-up" style="transition-delay:0.3s">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Emisiones CO₂ por Fuente Energética</div>
+              <div class="chart-subtitle">gCO₂eq / kWh — Ciclo de vida completo</div>
+            </div>
+            <span class="chart-badge">CO₂</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-co2"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CSV IMPORT -->
+  <section id="csv-section">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <span class="section-tag">// 04 — Importación</span>
+        <h2 class="section-title">Análisis <em>CSV</em></h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="csv-layout">
+        <div class="csv-controls fade-in-up">
+          <h3>// IMPORTAR DATOS</h3>
+          <div class="drop-zone" id="drop-zone">
+            <input type="file" id="csv-file-input" accept=".csv,.txt">
+            <span class="dz-icon">📂</span>
+            <div class="dz-text">ARRASTRA UN CSV<br>O HAZ CLICK</div>
+          </div>
+
+          <div class="csv-format-info">
+            <strong style="color:var(--text); font-size:0.8rem;">Formato esperado:</strong><br>
+            El CSV debe tener una columna de etiquetas y una o más columnas numéricas.
+            <code>año,produccion_TWh,reactores
+2019,2657,443
+2020,2553,441
+2021,2653,436</code>
+          </div>
+
+          <div style="display:flex; gap:0.8rem; flex-wrap:wrap;">
+            <button class="btn" onclick="loadDemoCSV()">DEMO CSV</button>
+            <button class="btn btn-success" onclick="exportChartPNG()">EXPORTAR PNG</button>
+          </div>
+
+          <div id="csv-info" style="display:none">
+            <div
+              style="font-family:'Share Tech Mono',monospace; font-size:0.7rem; color:var(--text-dim); line-height:2;">
+              <div>FILAS: <span id="csv-rows" style="color:var(--accent)">—</span></div>
+              <div>COLUMNAS: <span id="csv-cols" style="color:var(--accent)">—</span></div>
+              <div>ARCHIVO: <span id="csv-filename" style="color:var(--accent2)">—</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="csv-output fade-in-up" style="transition-delay:0.2s">
+          <div class="csv-output-header">
+            <span>VISUALIZACIÓN DE DATOS</span>
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span id="csv-status-text"
+                style="font-family:'Share Tech Mono',monospace; font-size:0.65rem; color:var(--text-dim);">SIN
+                DATOS</span>
+              <div class="status-dot" id="csv-dot"></div>
+            </div>
+          </div>
+          <div id="csv-chart-container">
+            <div class="csv-placeholder">
+              <span class="ph-icon">📊</span>
+              <div>CARGA UN ARCHIVO CSV<br>PARA VISUALIZAR</div>
+            </div>
+          </div>
+          <div id="csv-table-container"
+            style="display:none; border-top:1px solid var(--border); max-height:180px; overflow:auto;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAPA MUNDIAL -->
+  <section id="mapa-section">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <span class="section-tag">// 05 — Global</span>
+        <h2 class="section-title">Reactores en el <em>Mundo</em></h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="fade-in-up">
+        <div
+          style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:2rem; margin-bottom:2rem;">
+          <canvas id="chart-world-bar" height="120"></canvas>
+        </div>
+      </div>
+      <div class="world-grid fade-in-up">
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORIA -->
+  <section id="historia">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <span class="section-tag">// 06 — Cronología</span>
+        <h2 class="section-title">Historia <em>Nuclear</em></h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="timeline" id="timeline-container"></div>
+    </div>
+  </section>
+
+  <!-- ISÓTOPOS -->
+  <section id="isotopos">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <span class="section-tag">// 07 — Tabla Nuclear</span>
+        <h2 class="section-title">Isótopos <em>Clave</em></h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="isotope-grid" id="isotope-grid"></div>
+    </div>
+  </section>
+
+  <!-- SEGURIDAD -->
+  <section id="seguridad">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <span class="section-tag">// 08 — Comparativa</span>
+        <h2 class="section-title">Seguridad y <em>Riesgos</em></h2>
+        <div class="section-divider"></div>
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:2rem; flex-wrap:wrap;">
+        <div class="chart-card fade-in-up">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Muertes por TWh producido</div>
+              <div class="chart-subtitle">Muertes por cada TWh generado — Ciclo completo</div>
+            </div>
+            <span class="chart-badge">RIESGO</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-deaths"></canvas>
+          </div>
+        </div>
+        <div class="chart-card fade-in-up" style="transition-delay:0.15s">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Capacidad instalada proyectada</div>
+              <div class="chart-subtitle">GW nucleares al 2050 — Escenarios IAEA</div>
+            </div>
+            <span class="chart-badge">FUTURO</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-future"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">⚛ ENERGÍA NUCLEAR</div>
+    <p class="footer-text">
+      Plataforma educativa de información sobre energía nuclear.
+      Los datos presentados provienen de IAEA, Our World in Data, EIA y otras fuentes públicas.
+    </p>
+    <div class="footer-credits">Luis Vicente Albarracin - 2026</div>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
